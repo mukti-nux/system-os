@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Android ASIAVAN OS</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        accent: '#bb86fc',
+                        surface: '#121212',
+                        'surface-variant': '#2c2c2c',
+                    },
+                    borderRadius: {
+                        'xl': '28px',
+                        '2xl': '32px',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Motion (Framer Motion for JS) -->
+    <script src="https://cdn.jsdelivr.net/npm/framer-motion@10.16.4/dist/framer-motion.js"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Fira+Code&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #0f172a;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .app-window-enter {
+            animation: app-open 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        #notification-shade.open {
+            top: 0;
+        }
+        @keyframes app-open {
+            from { transform: scale(0.8); opacity: 0; filter: blur(10px); }
+            to { transform: scale(1); opacity: 1; filter: blur(0); }
+        }
+    </style>
+</head>
+<body class="bg-cover bg-center transition-all duration-700" style="background-image: url('wallpaper.png')">
+    
+    <!-- Status Bar (Always on Top) -->
+    <div id="status-bar" class="h-8 w-full flex justify-between items-center px-4 text-xs font-medium z-[3000] text-white">
+        <div class="status-left">
+            <span id="status-time">12:00</span>
+        </div>
+        <div class="flex items-center gap-2">
+            <i data-lucide="signal" size="14"></i>
+            <i data-lucide="wifi" size="14"></i>
+            <i data-lucide="battery" size="14"></i>
+        </div>
+    </div>
+
+    <div id="android-container" class="flex-1 w-full flex flex-col relative overflow-hidden">
+        <div id="homescreen" class="absolute inset-0 flex flex-col p-5 z-10">
+            <!-- App Grid -->
+            <div class="grid grid-cols-4 gap-y-6 gap-x-4 mt-2 overflow-y-auto max-h-[60vh]" id="homescreen-apps">
+                <!-- Apps will be injected here -->
+            </div>
+            
+            <div class="flex-1"></div>
+
+            <!-- Dock -->
+            <div id="dock" class="h-20 mb-5 bg-white/10 backdrop-blur-2xl rounded-[32px] flex justify-around items-center px-2">
+                <!-- Dock apps will be injected here -->
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Navigation Bar (Always on Top) -->
+    <div id="nav-bar" class="h-14 w-full flex justify-around items-center z-[3000] text-white bg-black/10 backdrop-blur-md">
+        <div class="nav-btn w-12 h-12 flex items-center justify-center cursor-pointer" id="nav-recents">
+            <i data-lucide="square" size="20"></i>
+        </div>
+        <div class="nav-btn w-12 h-12 flex items-center justify-center cursor-pointer" id="nav-home">
+            <i data-lucide="circle" size="24" stroke-width="3"></i>
+        </div>
+        <div class="nav-btn w-12 h-12 flex items-center justify-center cursor-pointer" id="nav-back">
+            <i data-lucide="chevron-left" size="24"></i>
+        </div>
+    </div>
+
+    <!-- Notification Shade -->
+    <div id="notification-shade" class="fixed -top-full left-0 w-full h-full bg-black/90 backdrop-blur-3xl z-[4000] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] py-14 px-5">
+        <div class="grid grid-cols-4 gap-4 mb-8">
+            <!-- Quick Settings -->
+            <div class="flex flex-col items-center gap-2 cursor-pointer group">
+                <div class="w-12 h-12 bg-accent text-black rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(187,134,252,0.4)] group-active:scale-90 transition-transform"><i data-lucide="wifi" size="20"></i></div>
+                <span class="text-[10px] text-white/70">Wifi</span>
+            </div>
+            <div class="flex flex-col items-center gap-2 cursor-pointer group">
+                <div class="w-12 h-12 bg-surface-variant text-white rounded-full flex items-center justify-center group-active:scale-90 transition-transform"><i data-lucide="bluetooth" size="20"></i></div>
+                <span class="text-[10px] text-white/70">Bluetooth</span>
+            </div>
+            <div class="flex flex-col items-center gap-2 cursor-pointer group">
+                <div class="w-12 h-12 bg-surface-variant text-white rounded-full flex items-center justify-center group-active:scale-90 transition-transform"><i data-lucide="flashlight" size="20"></i></div>
+                <span class="text-[10px] text-white/70">Torch</span>
+            </div>
+            <div class="flex flex-col items-center gap-2 cursor-pointer group">
+                <div class="w-12 h-12 bg-surface-variant text-white rounded-full flex items-center justify-center group-active:scale-90 transition-transform"><i data-lucide="moon" size="20"></i></div>
+                <span class="text-[10px] text-white/70">DND</span>
+            </div>
+        </div>
+        
+        <div class="bg-white/5 rounded-2xl p-4 border border-white/5 mb-4">
+            <div class="flex justify-between items-center mb-3">
+                <span class="text-xs font-semibold text-white/50 uppercase tracking-wider">Notifications</span>
+                <span class="text-[10px] text-accent cursor-pointer">Clear all</span>
+            </div>
+            <div id="notifications" class="space-y-3">
+                <div class="flex gap-3 items-start p-2 hover:bg-white/5 rounded-lg transition-colors">
+                    <div class="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center shrink-0"><i data-lucide="info" size="16" class="text-white"></i></div>
+                    <div>
+                        <p class="text-xs font-medium text-white">System Update</p>
+                        <p class="text-[10px] text-white/50">Version 1.5.25.01 is ready to install.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pull-up Handle -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 w-12 h-1.5 bg-white/20 rounded-full cursor-pointer hover:bg-white/40 transition-colors" id="shade-handle"></div>
+    </div>
+
+    <!-- App Switcher -->
+    <div id="recents-view" class="fixed inset-0 bg-black/80 backdrop-blur-md z-[1500] hidden items-center justify-center overflow-x-auto p-10">
+        <!-- Recent app cards -->
+    </div>
+
+    <!-- App Layer (Modern Android Style) -->
+    <div id="active-app-container" class="fixed top-0 left-0 right-0 bottom-14 bg-surface z-[2500] hidden flex-col">
+        <div class="h-14 flex items-center px-4 gap-4 border-b border-white/10 bg-black/20 backdrop-blur-md">
+            <i id="app-back-arrow" data-lucide="arrow-left" class="cursor-pointer hover:text-accent transition-colors"></i>
+            <span id="active-app-title" class="font-medium">App Name</span>
+        </div>
+        <div class="flex-1 overflow-auto" id="active-app-body">
+            <!-- App content -->
+        </div>
+    </div>
+
+    <!-- Core Scripts -->
+    <script src="js/fs.js"></script>
+    <script src="js/apps.js"></script>
+    <script src="js/wm.js"></script>
+    <script src="js/os.js"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

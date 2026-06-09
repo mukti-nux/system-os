@@ -1,0 +1,16 @@
+{
+  "package_name": "com.antigravity.phoenixbrowser",
+  "version": "3.0.0",
+  "app_name": "Phoenix Browser",
+  "icon": "globe",
+  "entry_point": "../browser/index.html",
+  "author": "Antigravity OS Developer",
+  "description": "A simple and fast web browser.",
+  "permissions": [
+    "network"
+  ],
+  "dependencies": {
+    "os_version": ">=1.0.0"
+  },
+  "install_date": "2026-05-12"
+}

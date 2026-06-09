@@ -1,0 +1,18 @@
+{
+  "package_name": "com.antigravity.whatsapp",
+  "version": "1.0.0",
+  "app_name": "WhatsApp",
+  "icon": "message-circle",
+  "entry_point": "../chat app/index.html",
+  "author": "Antigravity OS Developer",
+  "description": "WhatsApp-style messaging app for Antigravity OS",
+  "permissions": [
+    "network",
+    "storage",
+    "notifications"
+  ],
+  "dependencies": {
+    "os_version": ">=1.0.0"
+  },
+  "install_date": "2026-05-11"
+}

@@ -1,0 +1,35 @@
+# Node modules
+node_modules/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Runtime files
+.env
+.env.*
+
+# Build output
+dist/
+build/
+out/
+
+# Editor directories and system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Temporary files
+.cache/
+tmp/
+*.log
+
+# Coverage
+coverage/
+
+# OS generated files
+desktop.ini
+
